@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ─────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Background: warm cream */
+    --background: 0.975 0.008 80;
+    --foreground: 0.18 0.03 150;
+
+    /* Card: bright cream with very subtle warmth */
+    --card: 0.99 0.004 80;
+    --card-foreground: 0.18 0.03 150;
+
+    /* Popover */
+    --popover: 0.99 0.004 80;
+    --popover-foreground: 0.18 0.03 150;
+
+    /* Primary: deep forest green */
+    --primary: 0.38 0.12 155;
+    --primary-foreground: 0.98 0.005 80;
+
+    /* Secondary: soft sage */
+    --secondary: 0.9 0.04 145;
+    --secondary-foreground: 0.3 0.09 155;
+
+    /* Muted */
+    --muted: 0.93 0.015 120;
+    --muted-foreground: 0.52 0.04 145;
+
+    /* Accent: papaya orange */
+    --accent: 0.72 0.18 55;
+    --accent-foreground: 0.12 0.02 60;
+
+    /* Destructive: warning red */
+    --destructive: 0.57 0.24 25;
+    --destructive-foreground: 0.98 0.005 80;
+
+    /* Borders */
+    --border: 0.88 0.025 140;
+    --input: 0.88 0.025 140;
+    --ring: 0.38 0.12 155;
+
+    /* Expiry status colors */
+    --expiry-expired: 0.57 0.24 25;
+    --expiry-urgent: 0.65 0.22 40;
+    --expiry-warning: 0.78 0.18 70;
+    --expiry-safe: 0.55 0.15 145;
+
+    /* Charts */
+    --chart-1: 0.38 0.12 155;
+    --chart-2: 0.72 0.18 55;
+    --chart-3: 0.57 0.24 25;
+    --chart-4: 0.65 0.16 200;
+    --chart-5: 0.78 0.18 70;
+
+    /* Sidebar */
+    --sidebar: 0.22 0.07 158;
+    --sidebar-foreground: 0.94 0.015 150;
+    --sidebar-primary: 0.72 0.18 55;
+    --sidebar-primary-foreground: 0.12 0.02 60;
+    --sidebar-accent: 0.32 0.09 158;
+    --sidebar-accent-foreground: 0.94 0.015 150;
+    --sidebar-border: 0.3 0.08 158;
+    --sidebar-ring: 0.72 0.18 55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 10% 0%, oklch(0.92 0.04 145 / 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.88 0.06 70 / 0.25) 0%, transparent 50%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+/* ─── Noise texture overlay ─────────────────────────────────────────────── */
+@layer utilities {
+  .noise-texture {
+    position: relative;
+  }
+  .noise-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-sm;
+    background-color: oklch(var(--card) / 0.85);
+    box-shadow: 0 1px 3px oklch(0.18 0.03 150 / 0.06), 0 4px 16px oklch(0.18 0.03 150 / 0.04);
+  }
+
+  .expiry-expired {
+    color: oklch(var(--expiry-expired));
+    background-color: oklch(var(--expiry-expired) / 0.1);
+    border-color: oklch(var(--expiry-expired) / 0.25);
+  }
+  .expiry-urgent {
+    color: oklch(var(--expiry-urgent));
+    background-color: oklch(var(--expiry-urgent) / 0.1);
+    border-color: oklch(var(--expiry-urgent) / 0.25);
+  }
+  .expiry-warning {
+    color: oklch(var(--expiry-warning));
+    background-color: oklch(var(--expiry-warning) / 0.1);
+    border-color: oklch(var(--expiry-warning) / 0.25);
+  }
+  .expiry-safe {
+    color: oklch(var(--expiry-safe));
+    background-color: oklch(var(--expiry-safe) / 0.1);
+    border-color: oklch(var(--expiry-safe) / 0.25);
+  }
+}
